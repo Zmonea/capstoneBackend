@@ -8,6 +8,7 @@ const generateToken = require("../config/generateToken");
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
+        //Mondo DB Regex Option to find Name and Email without case sensitivity
         $or: [
           { name: { $regex: req.query.search, $options: "i" } },
           { email: { $regex: req.query.search, $options: "i" } },
@@ -24,7 +25,7 @@ const allUsers = asyncHandler(async (req, res) => {
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
-    
+
   if (!name || !email || !password) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
@@ -43,7 +44,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     pic,
   });
-  
+
   if (user) {
     res.status(201).json({
       _id: user._id,
