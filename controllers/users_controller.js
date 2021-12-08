@@ -24,17 +24,22 @@ user.post("/createaccount", (req, res) => {
   });
 });
 
-user.put("/login", (req, res) => {
+user.post("/login", (req, res) => {
   console.log(req.body);
+  console.log(req.body.username +" /login - Username from Req Body");
   User.findOne({ username: req.body.username }, (err, foundUser) => {
+    console.log(foundUser + "/login - user was found");
     if (err) {
+      console.log(err + " logging error post conditional");
       res.json("Sorry, but the Database ran into a problem. Please try again.");
     } else {
       if (!foundUser) {
+        console.log(foundUser + " /login - there is no user found");
         res.json("This user was not found. Please try again.");
       } else if (bcrypt.compareSync(req.body.password, foundUser.password)) {
         res.json({ username: foundUser.username });
       } else {
+        console.log(" /login - password did not match or everything else");
         res.json("Password does not match. Please try again.");
       }
     }
