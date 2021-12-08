@@ -7,7 +7,11 @@ const messageRoutes = require("./routes/messageRoutes");
 const socket = require("socket.io");
 const app = express();
 const server = require("http").createServer(app);
-let io = require("socket.io")(server, { cors: { origin: "*" } });
+let io = require("socket.io")(server, { 
+  cors: { origin: "*",
+  methods: ["GET", "POST"],
+  credentials: true
+ }  });
 
 const cors = require("cors");
 
