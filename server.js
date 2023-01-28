@@ -45,10 +45,7 @@ db.on("disconnected", () => console.log("mongo disconnected"));
 
 //Controllers
 
-// const carsController = require('./controllers/cars.js')
-// const userController = require('./controllers/users_controller.js')
-// app.use('/cars', carsController)
-// app.use('/', userController)
+
 
 app.get("/", (req, res) => {
   res.send("Hello World");

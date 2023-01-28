@@ -15,7 +15,7 @@ const accessChat = asyncHandler(async (req, res) => {
 
   var isChat = await Chat.find({
     isGroupChat: false,
-    $and: [
+    $and: [ // Mongo DB query like
       { users: { $elemMatch: { $eq: req.user._id } } },
       { users: { $elemMatch: { $eq: userId } } },
     ],
@@ -53,7 +53,6 @@ const accessChat = asyncHandler(async (req, res) => {
 
 //@description     Fetch all chats for a user
 //@route           GET /api/chat/
-//@access          Protected
 const fetchChats = asyncHandler(async (req, res) => {
   try {
     Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
@@ -111,9 +110,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Rename Group
-// @route   PUT /api/chat/rename
-// @access  Protected
+
 const renameGroup = asyncHandler(async (req, res) => {
   const { chatId, chatName } = req.body;
 
